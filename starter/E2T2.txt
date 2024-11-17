@@ -1,3 +1,35 @@
 Research and analyze which of the vulnerabilities appear to be related to the code that was deployed for the environment in this project.
+------------------------------------------------------------------------------------------------------------------------------------------
+I am listing the findings that are related to the code:
+- Security groups should not allow unrestricted access to ports with high risk
+- Security groups should not allow ingress from 0.0.0.0/0 or ::/0 to port 22
+- Security groups should not allow ingress from 0.0.0.0/0 or ::/0 to port 3389
+- Security groups should only allow unrestricted incoming traffic for authorized ports
+- CloudTrail should be enabled and configured with at least one multi-Region trail that includes read and write management events
+- EC2 instances should not have a public IPv4 address
+- EBS Encryption by default is not enabled.
+- This Amazon VPC doesn't use a VPC endpoint for service
+
 
 Bonus - provide recommendations on how to remediate the vulnerabilities.
+---------------------------------------------------------------------------
+-   Security groups should not allow * 
+    Follow least privilege principle and restrict the Security groups to accept ONLY needed traffic. for example we need to create 2 different security groups 
+    for our EC2 instances, the application server should not acceps SSH / RDP ports. The application EC2 can accept be set to accept traffic only from ALB by retricting it
+    to its dedicated SG.
+
+-   EC2 instances should not have a public IPv4 address
+    The ALB will forward the traffic to the EC2, 
+    we can also put the EC2 in private subnet and use VPC Link to allow the communication between them.
+
+-   EBS Encryption by default is not enabled
+    Enable EBS encryption When creating the EC2 instance.
+    In our IaC we can create the EC2 with encrypted EBS by addiing 'BlockDeviceMappings' configuration.
+
+-   This Amazon VPC doesn't use a VPC endpoint for service
+    We can setup VPC endpoints to allow AWS services to communicate inside the AWS network instead of getting out to the internet, 
+    it will reduce costs and gain security.
+
+-   Extra
+    As we use IaC, we need to apply static code analysis (like we studied earlier in the course) like Regula to detect those vulnerabilities and avoid
+    from misconfiguration and/or poor practices
