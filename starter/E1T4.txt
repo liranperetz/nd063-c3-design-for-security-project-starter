@@ -1,5 +1,38 @@
 Based on the architecture diagram, and the steps you have taken so far to upload data and access the application web service, identify at least 2 obvious poor practices as it relates to security.  Include justification.
 
 # Poor practice 1
+Least Privilege
+----------------
+I have detected components that do not follow the least privilege best practices:
+
+WebAppSG: 
+This security group allows any protocol, port, and IP for both ingress and egress. 
+This configuration leaves the application server completely open to the world, 
+providing no protection against unauthorized access.
+
+InstanceRolePolicy-C3: This instance role policy allows the instance to perform any action on any S3 bucket (e.g., Create, Delete, Get). 
+Such broad permissions expose the system to potential misuse or malicious activity, 
+violating the principle of least privilege.
+
+Example of how this poor practice can cause to a critical damage:
+In the demonstrated system, a "secret" S3 bucket is designated as a vault for storing secret recipes. 
+Mentioned in the exercise: "Access to this bucket should be strictly limited to privileged users, as the web application server does not require access."
+However, the InstanceRolePolicy-C3 configuration grants instances with this role unrestricted access to all S3 buckets, 
+including the "secret" bucket. 
+This overly permissive policy violates the principle of least privilege, 
+exposing sensitive resources to unnecessary risk and increasing the potential for unauthorized access or misuse.
+
 
 # Poor practice 2
+Lack of Network ACL
+------------------------------
+There is no Network ACL (NACL) configured to protect public subnets and public-facing resources. 
+This omission leaves the infrastructure vulnerable to malicious traffic and unauthorized access, 
+especially if there are misconfigurations in security groups.
+
+NACLs provide an additional layer of defense by filtering traffic at the subnet level to block known bad IPs, 
+restrict unused ports, and mitigate threats such as bots, DDoS attacks, and other common vulnerabilities.
+
+In this case, both the ALB and the EC2 instance (which hosts the application) are exposed to potential attacks due to the absence of NACLs. 
+This lack of protection increases the risk of unauthorized access, service disruption, or data breaches. 
+Properly configured NACLs would significantly reduce these risks by acting as a first line of defense for network-level traffic filtering.
