@@ -1,0 +1,10 @@
+# Brainstorm and list additional hardening suggestions aside from those implemented that would protect the data in this environment
+- Use HTTPS for all communication between the load balancer and clients.
+- Ensure that only necessary services and daemons are running on EC2 instances.
+- Implement automated patch management to keep the operating system and application dependencies up to date.
+- Use CloudTrail Insights to detect unusual API activity.
+- Configure AWS GuardDuty to detect unauthorized activities and enable AWS WAF on the load balancer for web application security.
+- Add explicit deny statements in the S3 bucket policy to block access from any source outside the VPC endpoint.
+- Enable S3 object lock and versioning to prevent accidental or malicious deletion of sensitive data.
+- Ensure all S3 buckets have default encryption enabled.
+- Encrypt all additional EBS volumes attached to instances.
