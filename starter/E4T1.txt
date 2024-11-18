@@ -1,5 +1,17 @@
-
-
 # Identify 2-3 changes that can be made to our environment to prevent an ssh brute force attack from the internet.
+1. Remove the inbound rule that allow ssh traffic from WebAppSG.
+2. Remove the inbound rule that allow all traffic, ports and protocols from WebAppSG.
+3. Enable Netwrok ACL on all subnets to protect also from brute force.
+
 
 # Neither instance should have had access to the secret recipes bucket, in the even that instance API credentials were compromised how could we have prevented access to sensitive data.
+We can secure access to sensitive data in an S3 bucket by implementing the following measures:
+
+Restrict Access to Specific IAM Roles or Users: 
+- Limit access only to explicitly authorized IAM roles or users with the necessary permissions.
+- VPC Restriction: Restrict access to the bucket to requests originating from specific VPCs to minimize exposure.
+- Enforce Least Privilege: Grant the minimum necessary permissions, such as read-only access to specific resources, and allow uploads only for authorized users.
+- Enable MFA for Sensitive Operations: Require Multi-Factor Authentication (MFA) for users performing sensitive actions like uploading or deleting objects.
+- Encrypt Data: Encrypt data at rest using AWS KMS with regular key rotation to enhance data security.
+
+
