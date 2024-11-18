@@ -1,3 +1,14 @@
 # Describe GuardDuty findings that were detected related to the brute force attack
+I waited for 24 hours, plus changing the export findings to 15 minutes, but no success. 
+Seems like the GuardDuty is not detecting it...
+(I saw that it's common issue in the Q&A)
 
 # Research the AWS Guard Duty documentation page and explain how GuardDuty may have detected this attack - i.e. what was its source of information.
+The source of the imformation needs to be in the VPC flow logs.
+I read those logs and saw:
+```
+...
+2 939450805310 eni-03e784d45cbbfadca 10.192.11.207 10.192.10.158 58680 22 6 22 2534 1731916644 1731916674 ACCEPT OK
+2 939450805310 eni-03e784d45cbbfadca 10.192.11.207 10.192.10.158 44604 22 6 22 2534 1731916644 1731916674 ACCEPT OK
+...
+```
