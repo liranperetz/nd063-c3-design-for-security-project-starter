@@ -2,6 +2,7 @@
 1. Remove the inbound rule that allow ssh traffic from WebAppSG.
 2. Remove the inbound rule that allow all traffic, ports and protocols from WebAppSG.
 3. Enable Netwrok ACL on all subnets to protect also from brute force.
+4. Hardened the OS and remove the ssh from it
 
 
 # Neither instance should have had access to the secret recipes bucket, in the even that instance API credentials were compromised how could we have prevented access to sensitive data.
