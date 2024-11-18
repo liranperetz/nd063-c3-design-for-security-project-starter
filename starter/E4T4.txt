@@ -1,8 +1,15 @@
 
 # What additional architectural change can be made to reduce the internet facing attack surface of the web application instance.
+First I want to create an API GW that will be the only component that will be internet facing, on that API GW I will enable Netwrok ACL, Authrorizer (JWT, API Key..).
+I will change the ALB to be internal and also the EC2 I will bind the API GW to the ALB by using a VPC link.
+The free receipts s3 bucket will be accessible to the application server via VPC Endpoint with read only policy while the secrets receipts will be accessible only
+from the console by authorized users with MFA.
 
 # Assuming the IAM permissions for the S3 bucket are still insecure, would creating VPC private endpoints for S3 prevent the unauthorized access to the secrets bucket.
+No, it will be more secure but not by its own.
 
 # Will applying default encryption setting to the s3 buckets encrypt the data that already exists?
+No, it will encrypt files that will be added after the change.
 
 # What would happen if the original cloud formation templates are applied to this environment.
+Cloud formation will override all manual changes.
