@@ -1,13 +1,26 @@
 # Identify tools that will allow you to do the following:
 
 ## Scan infrastructure as code templates
+- Regula -> A static code analysis tool for IaC.
 
 ### Example vulnerability
+Policy that grant access to all actions for all s3 buckets.
+
+
 
 ##Scan AMI’s or containers for OS vulnerabilities
+- AWS Inspector
 
 ### Example vulnerability
+Code vulnerability,
+from the docs: "Code vulnerability findings identify lines in your code that attackers could exploit. 
+Code vulnerabilities include injection flaws, data leaks, weak cryptography, or missing encryption in your code."
+
+
 
 ##Scan an AWS environment for cloud configuration vulnerabilities
+- AWS Config
 
 ### Example vulnerability
+There are a lot of AWS predefined rules but we can also create custom rules.
+Ine example I can provide is the custom rule we created earlier in the course to detect S3 buckets with versioning disabled
